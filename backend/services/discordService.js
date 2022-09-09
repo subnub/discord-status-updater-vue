@@ -48,7 +48,7 @@ export default class DiscordService {
       }
 
       puppeteer.use(pluginStealth());
-      const browser = await puppeteer.launch({ headless: false });
+      const browser = await puppeteer.launch({ headless: true });
       const page = await browser.newPage();
 
       await page.goto("https://discord.com/login", {
