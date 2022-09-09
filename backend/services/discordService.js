@@ -78,6 +78,10 @@ export default class DiscordService {
 
       await wait(2000);
 
+      for (let i = 0; i < 300; i++) {
+        await page.keyboard.press("Backspace");
+      }
+
       await page.type(
         'input[placeholder="Support has arrived!"]',
         randomListPick
