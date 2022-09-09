@@ -4,7 +4,6 @@ const messageListService = new MessageListService();
 
 export default class MessageListController {
   async getMessageList(_, res) {
-    console.log("get message list request");
     try {
       const messageList = await messageListService.getMessageList();
       res.send(messageList);
@@ -15,7 +14,6 @@ export default class MessageListController {
   }
   async getMessage(req, res) {
     try {
-      console.log("message request");
       const message = await messageListService.getMessage(req.params.id);
       res.send(message);
     } catch (e) {
@@ -25,13 +23,10 @@ export default class MessageListController {
   }
   async editMessage(req, res) {
     try {
-      console.log("body", req.body);
       const id = req.body.id;
       const newText = req.body.newText;
 
       const edittedMessage = await messageListService.editMessage(id, newText);
-
-      console.log("edit", id, newText);
 
       res.send(edittedMessage);
     } catch (e) {

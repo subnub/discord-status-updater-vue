@@ -11,7 +11,6 @@ export default {
   methods: {
     async createMessage(text) {
       await this.$messageListAPI.addMessage(text);
-      console.log("message created");
       this.$router.push("/");
     },
   },

@@ -6,9 +6,6 @@ import bodyParser from "body-parser";
 import cookieParser from "cookie-parser";
 import compression from "compression";
 import schedule from "node-schedule";
-// import passwordPrompt from "password-prompt";
-
-console.log("ENV VAR", process.env.cookiePassword);
 
 const app = new express();
 
@@ -17,17 +14,6 @@ app.use(compression());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(messageListRouter, authRouter, discordRouter);
-
-// const task = cron.schedule("01,30,40,59 * * * * *", () => {
-//   console.log("ran ran ranff2");
-// });
-
-// cron.schedule("01 * * * * *", () => {
-//   console.log("ran ran ran");
-// });
-
-// let password = passwordPrompt("password: ");
-// console.log("password", password);
 
 process.on("SIGINT", function () {
   console.log("\nEXIT COMMAND, SHUTTING DOWN CRON JOBS");

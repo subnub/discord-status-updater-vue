@@ -8,7 +8,7 @@ export default class MessageListService {
   async getMessageList() {
     const rawMessageList = await readFile(filePath);
     const messageJSON = JSON.parse(rawMessageList);
-    return messageJSONToArray(messageJSON);
+    return messageJSONToArray(messageJSON).reverse();
   }
   async getMessage(id) {
     const rawMessageList = await readFile(filePath);
@@ -38,5 +38,9 @@ export default class MessageListService {
     const messageJSON = JSON.parse(rawMessageList);
     delete messageJSON[id];
     await writeFile(filePath, JSON.stringify(messageJSON));
+  }
+  async getRandomMessageText() {
+    const messageList = await this.getMessageList();
+    return messageList[Math.floor(Math.random() * messageList.length)]?.text;
   }
 }

@@ -23,7 +23,6 @@ export default {
     async removeMessage() {
       await this.$messageListAPI.removeMessage(this.messageItem.id);
       this.$store.dispatch("messages/removeMessage", this.messageItem.id);
-      console.log("message removed");
     },
   },
 };

@@ -5,8 +5,8 @@ import auth from "../middleware/auth";
 const discordController = new DiscordController();
 const router = Router();
 
-router.post("/discord/stop-cron", discordController.stopCronJob);
+router.post("/discord/stop-cron", auth, discordController.stopCronJob);
 
-router.post("/discord/start-cron", discordController.startCronJob);
+router.post("/discord/start-cron", auth, discordController.startCronJob);
 
 export default router;

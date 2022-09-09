@@ -31,7 +31,6 @@
 import { mapState } from "vuex";
 export default {
   name: "LoginPage",
-  //   middleware: "loginPage",
   data() {
     return {
       password: "",
@@ -41,12 +40,10 @@ export default {
   methods: {
     async login() {
       try {
-        // this.$store.dispatch("auth/setLoggedIn");
         this.loading = true;
         await this.$authAPI.login(this.password);
         this.$store.dispatch("auth/setLoggedIn");
         this.loading = false;
-        console.log("Logged In");
       } catch (e) {
         console.log("Error Login In", e);
         this.loading = false;
@@ -61,8 +58,6 @@ export default {
       console.log("Error Login In", e);
       store.dispatch("auth/setLoggedOut");
     }
-    //store.dispatch("auth/setLoggedIn");
-    // redirect("/");
   },
   computed: {
     ...mapState({
@@ -74,7 +69,6 @@ export default {
     loggedIn: {
       handler(loggedIn) {
         if (loggedIn) {
-          console.log("route", this.$route);
           const redirect = this.$route.query.redirect || "/";
           this.$router.push(redirect);
         }
