@@ -21,8 +21,7 @@ export default {
   },
   methods: {
     async removeMessage() {
-      await this.$messageListAPI.removeMessage(this.messageItem.id);
-      this.$store.dispatch("messages/removeMessage", this.messageItem.id);
+      await this.$store.dispatch("messages/removeMessage", this.messageItem.id);
     },
   },
 };

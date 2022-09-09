@@ -7,8 +7,13 @@ export default ({ $axios }, inject) => {
     await $axios.get("/auth/check-login");
   };
 
+  const logout = async () => {
+    await $axios.post("/auth/logout");
+  };
+
   inject("authAPI", {
     login,
     checkLogin,
+    logout,
   });
 };

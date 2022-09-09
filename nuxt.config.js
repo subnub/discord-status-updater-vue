@@ -20,6 +20,7 @@ export default {
   plugins: [
     { src: "~/plugins/messageListAPI.js" },
     { src: "~/plugins/authAPI.js" },
+    { src: "~/plugins/discordAPI.js" },
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components

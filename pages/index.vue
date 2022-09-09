@@ -14,13 +14,8 @@ export default {
       messageList: (state) => state.messages.messageList,
     }),
   },
-  async asyncData({ $messageListAPI, store }) {
-    try {
-      const messageList = await $messageListAPI.getMessageList();
-      store.dispatch("messages/setMessageList", messageList);
-    } catch (e) {
-      console.log("error getting message list", e);
-    }
+  async asyncData({ store }) {
+    await store.dispatch("messages/setMessageList");
   },
 };
 </script>

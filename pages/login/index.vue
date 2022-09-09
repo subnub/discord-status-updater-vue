@@ -15,6 +15,9 @@
           <div v-show="loading" class="mt-3">
             <div class="loader"></div>
           </div>
+          <div v-show="formLoginError" class="mt-3">
+            <p class="text-red-500">Error Logging In</p>
+          </div>
         </div>
       </div>
     </form>
@@ -39,30 +42,19 @@ export default {
   },
   methods: {
     async login() {
-      try {
-        this.loading = true;
-        await this.$authAPI.login(this.password);
-        this.$store.dispatch("auth/setLoggedIn");
-        this.loading = false;
-      } catch (e) {
-        console.log("Error Login In", e);
-        this.loading = false;
-      }
+      this.loading = true;
+      await this.$store.dispatch("auth/login", this.password);
+      this.loading = false;
     },
   },
-  async asyncData({ store, $authAPI }) {
-    try {
-      await $authAPI.checkLogin();
-      store.dispatch("auth/setLoggedIn");
-    } catch (e) {
-      console.log("Error Login In", e);
-      store.dispatch("auth/setLoggedOut");
-    }
+  async asyncData({ store }) {
+    await store.dispatch("auth/loginWithCookie");
   },
   computed: {
     ...mapState({
       loggedIn: (state) => state.auth.loggedIn,
       loginChecked: (state) => state.auth.loginChecked,
+      formLoginError: (state) => state.auth.formLoginError,
     }),
   },
   watch: {

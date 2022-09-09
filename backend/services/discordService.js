@@ -24,16 +24,16 @@ const cronTime = process.env.CRON_TIME;
 export default class DiscordService {
   constructor() {
     schedule.cancelJob(cronID);
-    this.job = schedule.scheduleJob(cronID, cronTime, this.cronTask);
+    this.job = schedule.scheduleJob(cronID, cronTime, this.setDiscordStatus);
   }
   stopCronJob = async () => {
     await schedule.gracefulShutdown();
   };
   startCronJob = async () => {
     await schedule.gracefulShutdown();
-    this.job = schedule.scheduleJob(cronID, cronTime, this.cronTask);
+    this.job = schedule.scheduleJob(cronID, cronTime, this.setDiscordStatus);
   };
-  cronTask = async () => {
+  setDiscordStatus = async () => {
     const password = process.env.DISCORD_PASSWORD;
     if (!password) {
       console.log("No Discord Password Set, Skipping Cron Job");
