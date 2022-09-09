@@ -1,6 +1,6 @@
-const wait = () => {
+const wait = (milliseconds = 6000) => {
   return new Promise((resolve, reject) => {
-    setTimeout(() => resolve(), 6000);
+    setTimeout(() => resolve(), milliseconds);
   });
 };
 

@@ -48,7 +48,9 @@ export default class DiscordService {
       }
 
       puppeteer.use(pluginStealth());
-      const browser = await puppeteer.launch({ headless: true });
+      const browser = await puppeteer.launch({
+        headless: true,
+      });
       const page = await browser.newPage();
 
       await page.goto("https://discord.com/login", {
@@ -74,10 +76,14 @@ export default class DiscordService {
       await page.waitForSelector(".clearIcon-oT7WrW");
       await page.click(".clearIcon-oT7WrW");
 
+      await wait(2000);
+
       await page.type(
         'input[placeholder="Support has arrived!"]',
         randomListPick
       );
+
+      await wait(2000);
 
       await page.click(".lookFilled-yCfaCM");
 
