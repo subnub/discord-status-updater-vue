@@ -28,6 +28,8 @@ Create Page
 
 ## Installation
 
+Note: The LTS version of Node is recommended.
+
 First you must create 2 files on the root directory of the project, the first is the enviroment variables, this file should be called ".env".
 
 Add the following key value pairs to the file.
