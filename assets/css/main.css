@@ -26,6 +26,28 @@ button:hover {
   animation: spin 2s linear infinite;
 }
 
+.plus-icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.plus-icon:hover {
+  color: #a64271;
+}
+
+.settings-icon {
+  width: 30px;
+  height: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+.settings-icon:hover {
+  color: #a64271;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);
