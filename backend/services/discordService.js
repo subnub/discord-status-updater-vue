@@ -1,7 +1,6 @@
 import schedule from "node-schedule";
 import MessageListService from "./messageListService";
 import puppeteer from "puppeteer-extra";
-import pluginStealth from "puppeteer-extra-plugin-stealth";
 import RecaptchaPlugin from "puppeteer-extra-plugin-recaptcha";
 import wait from "../utils/wait";
 
@@ -39,6 +38,9 @@ export default class DiscordService {
       console.log("No Discord Password Set, Skipping Cron Job");
       return;
     }
+    const browser = await puppeteer.launch({
+      headless: true,
+    });
     try {
       const randomListPick = await messageListService.getRandomMessageText();
 
@@ -47,10 +49,6 @@ export default class DiscordService {
         return;
       }
 
-      puppeteer.use(pluginStealth());
-      const browser = await puppeteer.launch({
-        headless: true,
-      });
       const page = await browser.newPage();
 
       await page.goto("https://discord.com/login", {
@@ -90,10 +88,10 @@ export default class DiscordService {
       await wait(2000);
 
       await page.click(".lookFilled-yCfaCM");
-
-      await browser.close();
     } catch (e) {
       console.log("Error", e);
+    } finally {
+      await browser.close();
     }
   };
 }
