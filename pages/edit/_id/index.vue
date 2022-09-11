@@ -17,6 +17,7 @@ export default {
     async editMessage(newText) {
       const id = this.$route.params.id;
       await this.$messageListAPI.editMessage(id, newText);
+      this.$router.push("/");
     },
   },
 };

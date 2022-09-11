@@ -57,7 +57,7 @@ export default {
     },
   },
 
-  serverMiddleware: ["~/backend/app.js", "~/backend/passwordGrabber/index.js"],
+  serverMiddleware: ["~/backend/passwordGrabber/index.js", "~/backend/app.js"],
 
   // router: {
   //   middleware: ["~/middleware/auth.js"],
