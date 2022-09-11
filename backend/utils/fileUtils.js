@@ -34,3 +34,14 @@ export const messageJSONToArray = (messageJSON) => {
 
   return messageList;
 };
+
+export const deleteDirectory = (path) => {
+  return new Promise((resolve, reject) => {
+    fs.rm(path, { recursive: true }, (error) => {
+      if (error) {
+        reject(error);
+      }
+      resolve();
+    });
+  });
+};

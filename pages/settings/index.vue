@@ -1,7 +1,13 @@
 <template>
   <div class="flex flex-col w-full items-center mt-3">
-    <button @click="setDiscordStatus">Set Random Discord Status</button>
-    <button @click="logout" class="mt-3">Logout</button>
+    <button @click="logIntoDiscord">Log Into Discord</button>
+    <button @click="setDiscordStatus" class="mt-3">
+      Set Random Discord Status
+    </button>
+    <button @click="logout" class="mt-3">Logout Of Web App</button>
+    <button @click="removeLoginData" class="mt-3">
+      Delete Discord Login Data
+    </button>
     <button @click="startCronJob" class="mt-3">Start Cron Job</button>
     <button @click="stopCronJob" class="mt-3">Stop Cron Job</button>
     <div
@@ -29,50 +35,74 @@ export default {
   methods: {
     async logout() {
       try {
+        this.error = null;
         this.loading = "logout";
         await this.$authAPI.logout();
-        this.loading = null;
-        this.error = null;
         this.$router.push("/login");
       } catch (e) {
         console.log("Error logging out", e);
         this.error = "logout";
+      } finally {
+        this.loading = null;
+      }
+    },
+    async logIntoDiscord() {
+      try {
+        this.error = null;
+        this.loading = "logging-into-discord";
+        await this.$discordAPI.logIntoDiscord();
+      } catch (e) {
+        console.log("Error logging into discord", e);
+        this.error = "logging-into-discord";
+      } finally {
+        this.loading = null;
+      }
+    },
+    async removeLoginData() {
+      try {
+        this.error = null;
+        this.loading = "remove-login-data";
+        await this.$discordAPI.removeLoginData();
+      } catch (e) {
+        console.log("Error removing login data", e);
+        this.error = "remove-login-data";
+      } finally {
         this.loading = null;
       }
     },
     async setDiscordStatus() {
       try {
-        this.loading = "set-discord-status";
-        await this.$discordAPI.setDiscordStatus();
-        this.loading = null;
         this.error = null;
+        this.loading = "set-random-discord-status";
+        await this.$discordAPI.setDiscordStatus();
       } catch (e) {
         console.log("Error setting Discord status", e);
-        this.error = "set-discord-status";
+        this.error = "set-random-discord-status";
+      } finally {
         this.loading = null;
       }
     },
     async startCronJob() {
       try {
+        this.error = null;
         this.loading = "start-cron";
         await this.$discordAPI.startCronJob();
-        this.loading = null;
-        this.error = null;
       } catch (e) {
         console.log("Error starting cron job", e);
         this.error = "start-cron";
+      } finally {
         this.loading = null;
       }
     },
     async stopCronJob() {
       try {
+        this.error = null;
         this.loading = "stop-cron";
         await this.$discordAPI.stopCronJob();
-        this.loading = null;
-        this.error = null;
       } catch (e) {
         console.log("Error stopping cron job", e);
         this.error = "stop-cron";
+      } finally {
         this.loading = null;
       }
     },
@@ -91,8 +121,14 @@ export default {
         case "stop-cron": {
           return "Stopping cron job...";
         }
-        case "set-discord-status": {
+        case "set-random-discord-status": {
           return "Setting Discord status...";
+        }
+        case "logging-into-discord": {
+          return "Logging Into Discord...";
+        }
+        case "remove-login-data": {
+          return "Removing Login Data...";
         }
         default: {
           return "Loading...";
@@ -112,8 +148,14 @@ export default {
         case "stop-cron": {
           return "Error Stopping Cron Job";
         }
-        case "set-discord-status": {
+        case "set-random-discord-status": {
           return "Error Setting Discord Status";
+        }
+        case "logging-into-discord": {
+          return "Error Logging Into Discord";
+        }
+        case "remove-login-data": {
+          return "Error Removing Login Data";
         }
         default: {
           return "Error";

@@ -7,3 +7,13 @@ export class NotAuthorizedError extends Error {
     this.code = 401;
   }
 }
+
+export class NotFoundError extends Error {
+  code;
+
+  constructor(args) {
+    super(args);
+
+    this.code = 404;
+  }
+}

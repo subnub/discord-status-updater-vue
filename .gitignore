@@ -92,3 +92,5 @@ sw.*
 *.swp
 
 db.json
+
+/chrome_data

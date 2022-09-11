@@ -1,6 +1,7 @@
 import { readFile, writeFile, messageJSONToArray } from "../utils/fileUtils";
 import path from "path";
 import { v4 as uuidv4 } from "uuid";
+import { NotFoundError } from "../utils/errors";
 
 const filePath = path.join(__dirname, "../../db.json");
 
@@ -13,11 +14,18 @@ export default class MessageListService {
   async getMessage(id) {
     const rawMessageList = await readFile(filePath);
     const messageJSON = JSON.parse(rawMessageList);
-    return messageJSON[id];
+    const message = messageJSON[id];
+    if (!message) {
+      throw new NotFoundError("Message Not Found");
+    }
+    return message;
   }
   async editMessage(id, newText) {
     const rawMessageList = await readFile(filePath);
     const messageJSON = JSON.parse(rawMessageList);
+    if (!messageJSON[id]) {
+      throw new NotFoundError("Message Not Found");
+    }
     messageJSON[id].text = newText;
     await writeFile(filePath, JSON.stringify(messageJSON));
     return messageJSON[id];
@@ -36,6 +44,9 @@ export default class MessageListService {
   async removeMessage(id) {
     const rawMessageList = await readFile(filePath);
     const messageJSON = JSON.parse(rawMessageList);
+    if (!messageJSON[id]) {
+      throw new NotFoundError("Message Not Found");
+    }
     delete messageJSON[id];
     await writeFile(filePath, JSON.stringify(messageJSON));
   }
