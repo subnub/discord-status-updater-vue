@@ -1,21 +1,23 @@
 <template>
-  <div class="flex flex-col w-full items-center mt-3">
-    <button @click="logIntoDiscord">Log Into Discord</button>
-    <button @click="setDiscordStatus" class="mt-3">
-      Set Random Discord Status
-    </button>
-    <button @click="logout" class="mt-3">Logout Of Web App</button>
-    <button @click="removeLoginData" class="mt-3">
-      Delete Discord Login Data
-    </button>
-    <button @click="startCronJob" class="mt-3">Start Cron Job</button>
-    <button @click="stopCronJob" class="mt-3">Stop Cron Job</button>
-    <div
-      v-show="loading"
-      class="flex flex-col justify-center items-center mt-3"
-    >
-      <div class="loader"></div>
-      <p class="mt-2">{{ loadingMessage }}</p>
+  <div class="flex flex-col w-full items-center justify-center">
+    <div class="flex flex-col items-center mt-3">
+      <button @click="logIntoDiscord" class="w-full">Log Into Discord</button>
+      <button @click="setDiscordStatus" class="w-full mt-3">
+        Set Random Discord Status
+      </button>
+      <button @click="logout" class="w-full mt-3">Logout Of Web App</button>
+      <button @click="removeLoginData" class="w-full mt-3">
+        Delete Discord Login Data
+      </button>
+      <button @click="startCronJob" class="w-full mt-3">Start Cron Job</button>
+      <button @click="stopCronJob" class="w-full mt-3">Stop Cron Job</button>
+      <div
+        v-show="loading"
+        class="flex flex-col justify-center items-center mt-3"
+      >
+        <div class="loader"></div>
+        <p class="mt-2">{{ loadingMessage }}</p>
+      </div>
     </div>
     <div v-show="error" class="mt-3">
       <p class="text-red-500">{{ errorMessage }}</p>
