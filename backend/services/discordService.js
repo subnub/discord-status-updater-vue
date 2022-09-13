@@ -105,9 +105,13 @@ export default class DiscordService {
       await page.click(".clearIcon-oT7WrW");
     }
 
-    for (let i = 0; i < 300; i++) {
-      await page.keyboard.press("Backspace");
-    }
+    await wait(1500);
+
+    const input = await page.$('input[placeholder="Support has arrived!"]');
+
+    await input.click({ clickCount: 3 });
+
+    await page.keyboard.press("Backspace");
 
     await page.type('input[placeholder="Support has arrived!"]', messageText);
 
