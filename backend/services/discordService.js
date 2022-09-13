@@ -5,6 +5,7 @@ import RecaptchaPlugin from "puppeteer-extra-plugin-recaptcha";
 import wait from "../utils/wait";
 import path from "path";
 import { deleteDirectory } from "../utils/fileUtils";
+import { createPuppeteerOptions } from "../utils/puppeteer-utils";
 
 const chromeDataPath = path.join(__dirname, "../../chrome_data");
 
@@ -30,23 +31,36 @@ export default class DiscordService {
     this.job = schedule.scheduleJob(
       cronID,
       cronTime,
-      this.setRandomDiscordStatus
+      this.setRandomDiscordStatusCronJob
     );
   }
   stopCronJob = async () => {
+    schedule.cancelJob(cronID);
     await schedule.gracefulShutdown();
   };
   startCronJob = async () => {
+    schedule.cancelJob(cronID);
     await schedule.gracefulShutdown();
     this.job = schedule.scheduleJob(
       cronID,
       cronTime,
-      this.setRandomDiscordStatus
+      this.setRandomDiscordStatusCronJob
     );
   };
   setMessageAsDiscordStatus = async (browser, id) => {
     const message = await messageListService.getMessage(id);
     await this.setDiscordStatus(browser, message.text);
+  };
+  setRandomDiscordStatusCronJob = async () => {
+    const puppeteerOptions = createPuppeteerOptions();
+    const browser = await puppeteer.launch(puppeteerOptions);
+    try {
+      await this.setRandomDiscordStatus(browser);
+    } catch (e) {
+      console.log("Error Setting Random Custom Discord Status Cron Job", e);
+    } finally {
+      await browser.close();
+    }
   };
   setRandomDiscordStatus = async (browser) => {
     const messageText = await messageListService.getRandomMessageText();
