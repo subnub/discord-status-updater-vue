@@ -9,7 +9,6 @@
 
 <script>
 export default {
-  name: "MessageForm",
   data() {
     return {
       text: this.initialText,
@@ -18,12 +17,12 @@ export default {
   props: {
     initialText: {
       type: String,
-      default: "",
+      default: '',
     },
   },
   methods: {
     submitForm() {
-      this.$emit("submit", this.text);
+      this.$emit('submit', this.text);
     },
   },
 };

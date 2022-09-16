@@ -4,7 +4,6 @@
 
 <script>
 export default {
-  name: 'EditPage',
   middleware: 'auth',
   async asyncData({ $messageListAPI, route }) {
     const id = route.params.id;

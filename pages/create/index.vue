@@ -6,7 +6,6 @@
 
 <script>
 export default {
-  name: 'CreatePage',
   middleware: 'auth',
   methods: {
     async createMessage(text) {

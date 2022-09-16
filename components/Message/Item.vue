@@ -29,7 +29,6 @@
 
 <script>
 export default {
-  name: 'MessageListItem',
   data() {
     return {
       loading: false,

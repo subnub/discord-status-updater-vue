@@ -31,24 +31,23 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "LoginPage",
   data() {
     return {
-      password: "",
+      password: '',
       loading: false,
     };
   },
   methods: {
     async login() {
       this.loading = true;
-      await this.$store.dispatch("auth/login", this.password);
+      await this.$store.dispatch('auth/login', this.password);
       this.loading = false;
     },
   },
   async asyncData({ store }) {
-    await store.dispatch("auth/loginWithCookie");
+    await store.dispatch('auth/loginWithCookie');
   },
   computed: {
     ...mapState({
@@ -61,7 +60,7 @@ export default {
     loggedIn: {
       handler(loggedIn) {
         if (loggedIn) {
-          const redirect = this.$route.query.redirect || "/";
+          const redirect = this.$route.query.redirect || '/';
           this.$router.push(redirect);
         }
       },

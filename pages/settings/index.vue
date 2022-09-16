@@ -24,7 +24,6 @@
 
 <script>
 export default {
-  name: 'SettingsPage',
   data() {
     return {
       loading: null,

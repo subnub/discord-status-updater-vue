@@ -5,17 +5,16 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState } from 'vuex';
 export default {
-  name: "IndexPage",
-  middleware: "auth",
+  middleware: 'auth',
   computed: {
     ...mapState({
       messageList: (state) => state.messages.messageList,
     }),
   },
   async asyncData({ store }) {
-    await store.dispatch("messages/setMessageList");
+    await store.dispatch('messages/setMessageList');
   },
 };
 </script>
