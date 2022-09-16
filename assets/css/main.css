@@ -57,6 +57,14 @@ button:hover {
   color: #a64271;
 }
 
+.notification-success {
+  color: green;
+}
+
+.notification-error {
+  color: red;
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

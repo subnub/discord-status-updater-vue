@@ -19,91 +19,123 @@
         <p class="mt-2">{{ loadingMessage }}</p>
       </div>
     </div>
-    <div v-show="error" class="mt-3">
-      <p class="text-red-500">{{ errorMessage }}</p>
-    </div>
   </div>
 </template>
 
 <script>
 export default {
-  name: "SettingsPage",
+  name: 'SettingsPage',
   data() {
     return {
       loading: null,
-      error: null,
     };
   },
   methods: {
     async logout() {
       try {
-        this.error = null;
-        this.loading = "logout";
+        this.loading = 'logout';
         await this.$authAPI.logout();
-        this.$router.push("/login");
+        this.$router.push('/login');
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Logged out of web app',
+        );
       } catch (e) {
-        console.log("Error logging out", e);
-        this.error = "logout";
+        console.log('Error logging out', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error logging out of web app',
+        );
       } finally {
         this.loading = null;
       }
     },
     async logIntoDiscord() {
       try {
-        this.error = null;
-        this.loading = "logging-into-discord";
+        this.loading = 'logging-into-discord';
         await this.$discordAPI.logIntoDiscord();
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Logged into Discord',
+        );
       } catch (e) {
-        console.log("Error logging into discord", e);
-        this.error = "logging-into-discord";
+        console.log('Error logging into discord', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error logging into Discord',
+        );
       } finally {
         this.loading = null;
       }
     },
     async removeLoginData() {
       try {
-        this.error = null;
-        this.loading = "remove-login-data";
+        this.loading = 'remove-login-data';
         await this.$discordAPI.removeLoginData();
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Removed Discord login data',
+        );
       } catch (e) {
-        console.log("Error removing login data", e);
-        this.error = "remove-login-data";
+        console.log('Error removing login data', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error removing Discord login data',
+        );
       } finally {
         this.loading = null;
       }
     },
     async setDiscordStatus() {
       try {
-        this.error = null;
-        this.loading = "set-random-discord-status";
+        this.loading = 'set-random-discord-status';
         await this.$discordAPI.setDiscordStatus();
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Set random Discord status',
+        );
       } catch (e) {
-        console.log("Error setting Discord status", e);
-        this.error = "set-random-discord-status";
+        console.log('Error setting Discord status', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error setting random Discord status',
+        );
       } finally {
         this.loading = null;
       }
     },
     async startCronJob() {
       try {
-        this.error = null;
-        this.loading = "start-cron";
+        this.loading = 'start-cron';
         await this.$discordAPI.startCronJob();
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Started cron job',
+        );
       } catch (e) {
-        console.log("Error starting cron job", e);
-        this.error = "start-cron";
+        console.log('Error starting cron job', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error starting cron job',
+        );
       } finally {
         this.loading = null;
       }
     },
     async stopCronJob() {
       try {
-        this.error = null;
-        this.loading = "stop-cron";
+        this.loading = 'stop-cron';
         await this.$discordAPI.stopCronJob();
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Stopped cron job',
+        );
       } catch (e) {
-        console.log("Error stopping cron job", e);
-        this.error = "stop-cron";
+        console.log('Error stopping cron job', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error stopping cron job',
+        );
       } finally {
         this.loading = null;
       }
@@ -111,56 +143,29 @@ export default {
   },
   computed: {
     loadingMessage() {
-      if (!this.loading) return "";
+      if (!this.loading) return '';
 
       switch (this.loading) {
-        case "logout": {
-          return "Logging out...";
+        case 'logout': {
+          return 'Logging out...';
         }
-        case "start-cron": {
-          return "Starting cron job...";
+        case 'start-cron': {
+          return 'Starting cron job...';
         }
-        case "stop-cron": {
-          return "Stopping cron job...";
+        case 'stop-cron': {
+          return 'Stopping cron job...';
         }
-        case "set-random-discord-status": {
-          return "Setting Discord status...";
+        case 'set-random-discord-status': {
+          return 'Setting Discord status...';
         }
-        case "logging-into-discord": {
-          return "Logging Into Discord...";
+        case 'logging-into-discord': {
+          return 'Logging Into Discord...';
         }
-        case "remove-login-data": {
-          return "Removing Login Data...";
-        }
-        default: {
-          return "Loading...";
-        }
-      }
-    },
-    errorMessage() {
-      if (!this.error) return "";
-
-      switch (this.error) {
-        case "logout": {
-          return "Error Logging Out";
-        }
-        case "start-cron": {
-          return "Error Starting Cron Job";
-        }
-        case "stop-cron": {
-          return "Error Stopping Cron Job";
-        }
-        case "set-random-discord-status": {
-          return "Error Setting Discord Status";
-        }
-        case "logging-into-discord": {
-          return "Error Logging Into Discord";
-        }
-        case "remove-login-data": {
-          return "Error Removing Login Data";
+        case 'remove-login-data': {
+          return 'Removing Login Data...';
         }
         default: {
-          return "Error";
+          return 'Loading...';
         }
       }
     },

@@ -17,7 +17,7 @@
 
 <script>
 export default {
-  name: "MessageListItem",
+  name: 'MessageListItem',
   data() {
     return {
       loading: false,
@@ -31,15 +31,23 @@ export default {
   },
   methods: {
     async removeMessage() {
-      await this.$store.dispatch("messages/removeMessage", this.messageItem.id);
+      await this.$store.dispatch('messages/removeMessage', this.messageItem.id);
     },
     async setMessageAsStatus() {
       if (this.loading) return;
       try {
         this.loading = true;
         await this.$discordAPI.setMessageAsDiscordStatus(this.messageItem.id);
+        this.$store.dispatch(
+          'notifications/addSuccessNotification',
+          'Set Discord Status',
+        );
       } catch (e) {
-        console.log("Error Setting Message As Discord Status", e);
+        console.log('Error Setting Message As Discord Status', e);
+        this.$store.dispatch(
+          'notifications/addErrorNotification',
+          'Error setting Discord Status',
+        );
       } finally {
         this.loading = false;
       }
