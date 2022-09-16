@@ -1,6 +1,6 @@
 <template>
   <div class="w-full flex flex-col items-center">
-    <MessageListItem
+    <MessageItem
       v-for="messageItem in messageList"
       :key="messageItem.id"
       :messageItem="messageItem"
@@ -10,7 +10,7 @@
 
 <script>
 export default {
-  name: "MessageList",
+  name: 'MessageList',
   props: {
     messageList: {
       type: Array,
