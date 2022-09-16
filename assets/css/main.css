@@ -43,7 +43,7 @@ button:hover {
 }
 
 .plus-icon:hover {
-  color: #a64271;
+  color: #742e4f;
 }
 
 .settings-icon {
@@ -54,7 +54,7 @@ button:hover {
 }
 
 .settings-icon:hover {
-  color: #a64271;
+  color: #742e4f;
 }
 
 .notification-success {
@@ -63,6 +63,26 @@ button:hover {
 
 .notification-error {
   color: red;
+}
+
+.edit-icon {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.edit-icon:hover {
+  color: #742e4f;
+}
+
+.delete-icon {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+
+.delete-icon:hover {
+  color: #742e4f;
 }
 
 @keyframes spin {
