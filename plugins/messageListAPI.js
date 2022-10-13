@@ -4,6 +4,12 @@ export default ({ $axios }, inject) => {
     return messageList.data;
   };
 
+  const searchMessageList = async (searchText) => {
+    console.log("search message list", searchText);
+    const messageList = await $axios.get(`/search-message-list/${searchText}`);
+    return messageList.data;
+  };
+
   const getMessage = async (id) => {
     const message = await $axios.get(`/get-message/${id}`);
     return message.data;
@@ -27,5 +33,6 @@ export default ({ $axios }, inject) => {
     editMessage,
     addMessage,
     removeMessage,
+    searchMessageList,
   });
 };

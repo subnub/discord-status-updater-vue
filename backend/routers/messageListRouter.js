@@ -8,6 +8,12 @@ const router = Router();
 
 router.get("/get-message-list", auth, messageListController.getMessageList);
 
+router.get(
+  "/search-message-list/:searchText",
+  auth,
+  messageListController.searchMessageList
+);
+
 router.get("/get-message/:id", auth, messageListController.getMessage);
 
 router.patch("/edit-message", auth, messageListController.editMessage);

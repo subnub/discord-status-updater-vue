@@ -12,6 +12,18 @@ export default class MessageListController {
       res.status(500).send("Server Error Getting Message List");
     }
   }
+  async searchMessageList(req, res) {
+    try {
+      const searchText = req.params.searchText;
+      const messageList = await messageListService.searchMessageList(
+        searchText
+      );
+      res.send(messageList);
+    } catch (e) {
+      console.log("Error Searching Message List", e);
+      res.status(500).send("Server Error Searching Message List");
+    }
+  }
   async getMessage(req, res) {
     try {
       const message = await messageListService.getMessage(req.params.id);

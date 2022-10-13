@@ -11,6 +11,15 @@ export default class MessageListService {
     const messageJSON = JSON.parse(rawMessageList);
     return messageJSONToArray(messageJSON).reverse();
   }
+  async searchMessageList(searchText) {
+    const rawMessageList = await readFile(filePath);
+    const messageJSON = JSON.parse(rawMessageList);
+    return messageJSONToArray(messageJSON)
+      .reverse()
+      .filter((message) =>
+        message.text.toLowerCase().includes(searchText.toLowerCase())
+      );
+  }
   async getMessage(id) {
     const rawMessageList = await readFile(filePath);
     const messageJSON = JSON.parse(rawMessageList);
