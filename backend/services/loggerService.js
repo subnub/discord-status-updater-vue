@@ -8,7 +8,6 @@ class LoggerService {
     order = "desc",
     start = 0
   ) => {
-    console.log("start", start);
     const queries = await queryLogger({
       from,
       until: new Date(),

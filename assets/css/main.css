@@ -107,6 +107,22 @@ button:hover {
   color: #742e4f;
 }
 
+.close-logs-icon {
+  width: 20px;
+  height: 20px;
+  cursor: pointer;
+  color: black;
+}
+
+.close-logs-icon:hover {
+  color: #742e4f;
+}
+
+.logs-modal-height {
+  height: calc(100% - 48px);
+  max-height: calc(100% - 48px);
+}
+
 @keyframes spin {
   0% {
     transform: rotate(0deg);

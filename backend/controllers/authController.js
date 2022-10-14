@@ -1,4 +1,5 @@
 import AuthService from "../services/authService";
+import logger from "../logger";
 
 const authService = new AuthService();
 
@@ -11,7 +12,7 @@ class AuthController {
 
       res.send();
     } catch (e) {
-      console.log("Error Login In", e);
+      logger.error(e);
       const status = e.code || 500;
       res.status(status).send("Server Error Login In");
     }
@@ -22,7 +23,7 @@ class AuthController {
 
       res.send();
     } catch (e) {
-      console.log("Error Logging Out", e);
+      logger.error(e);
       const status = e.code || 500;
       res.status(status).send("Server Error Login Out");
     }
@@ -31,7 +32,9 @@ class AuthController {
     try {
       res.send();
     } catch (e) {
-      console.log("Error Checking Login", e);
+      if (e.code !== 401) {
+        logger.error(e);
+      }
       const status = e.code || 500;
       res.status(status).send("Server Error Login In");
     }

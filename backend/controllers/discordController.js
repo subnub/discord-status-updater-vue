@@ -1,6 +1,7 @@
 import DiscordService from "../services/discordService";
 import puppeteer from "puppeteer-extra";
 import { createPuppeteerOptions } from "../utils/puppeteer-utils";
+import logger from "../logger";
 
 export default class DiscordController {
   constructor() {
@@ -13,7 +14,7 @@ export default class DiscordController {
       await this.discordService.stopCronJob();
       res.send();
     } catch (e) {
-      console.log("Error Stopping Cron Job", e);
+      logger.error(e);
       res.status(500).send("Server Error Stopping Cron Job");
     }
   };
@@ -22,7 +23,7 @@ export default class DiscordController {
       await this.discordService.startCronJob();
       res.send();
     } catch (e) {
-      console.log("Error Starting Cron Job", e);
+      logger.error(e);
       res.status(500).send("Server Error Starting Cron Job");
     }
   };
@@ -32,7 +33,7 @@ export default class DiscordController {
       await this.discordService.setRandomDiscordStatus(browser);
       res.send();
     } catch (e) {
-      console.log("Error Setting Discord Status", e);
+      logger.error(e);
       res.status(500).send("Server Error Setting Discord Status");
     } finally {
       await browser.close();
@@ -45,7 +46,7 @@ export default class DiscordController {
       await this.discordService.setMessageAsDiscordStatus(browser, id);
       res.send();
     } catch (e) {
-      console.log("Error Setting Message As Discord Status", e);
+      logger.error(e);
       res.status(500).send("Server Error Setting Message As Discord Status");
     } finally {
       await browser.close();
@@ -57,7 +58,7 @@ export default class DiscordController {
       await this.discordService.logIntoDiscord(browser);
       res.send();
     } catch (e) {
-      console.log("Error Logging Into Discord", e);
+      logger.error(e);
       res.status(500).send("Server Error Logging Into Discord");
     } finally {
       await browser.close();
@@ -68,7 +69,7 @@ export default class DiscordController {
       await this.discordService.removeLoginData();
       res.send();
     } catch (e) {
-      console.log("Error Removing Login Data", e);
+      logger.error(e);
       res.status(500).send("Server Error Removing Login Data");
     }
   };

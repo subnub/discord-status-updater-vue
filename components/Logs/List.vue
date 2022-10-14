@@ -28,10 +28,12 @@
         @scroll="listOnScroll"
         class="flex flex-col overflow-scroll border-2 h-full"
       >
-        <LogsItem v-for="(log, index) of logs" :key="index" :log="log" />
-        <!-- <div v-for="(log, index) of logs" :key="index">
-          <p>{{ log.message }}</p>
-        </div> -->
+        <LogsItem
+          v-for="(log, index) of logs"
+          :key="index"
+          :log="log"
+          :index="index"
+        />
       </div>
     </div>
   </div>
@@ -63,7 +65,6 @@ export default {
           0
         );
         this.logs = logsResponse.data;
-        console.log("logs response", logsResponse);
       } catch (e) {
         console.log("Error getting logs", e);
       } finally {
@@ -81,7 +82,6 @@ export default {
           this.logs.length
         );
         this.logs = [...this.logs, ...logsResponse.data];
-        console.log("logs response", logsResponse);
       } catch (e) {
         console.log("Error getting logs", e);
       } finally {

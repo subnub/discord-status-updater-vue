@@ -1,5 +1,9 @@
 <template>
-  <div class="flex p-1">
+  <div
+    @click="selectLog"
+    class="flex p-1 cursor-pointer hover:bg-gray-400"
+    :class="backgroundClass"
+  >
     <div class="w-1/2 flex">
       <div>
         <svg
@@ -45,10 +49,22 @@ export default {
       type: Object,
       required: true,
     },
+    index: {
+      type: Number,
+      required: true,
+    },
   },
   computed: {
     formattedDate() {
       return moment(this.log.timestamp).format("MM/DD/YYYY hh:mm a");
+    },
+    backgroundClass() {
+      return this.index % 2 === 0 ? "bg-gray-200" : "bg-white";
+    },
+  },
+  methods: {
+    selectLog() {
+      this.$store.dispatch("logs/setSelectedLog", this.log);
     },
   },
 };

@@ -1,4 +1,5 @@
 import MessageListService from "../services/messageListService";
+import logger from "../logger";
 
 const messageListService = new MessageListService();
 
@@ -8,7 +9,7 @@ export default class MessageListController {
       const messageList = await messageListService.getMessageList();
       res.send(messageList);
     } catch (e) {
-      console.log("Error Getting Message List", e);
+      logger.error(e);
       res.status(500).send("Server Error Getting Message List");
     }
   }
@@ -20,7 +21,7 @@ export default class MessageListController {
       );
       res.send(messageList);
     } catch (e) {
-      console.log("Error Searching Message List", e);
+      logger.error(e);
       res.status(500).send("Server Error Searching Message List");
     }
   }
@@ -29,7 +30,7 @@ export default class MessageListController {
       const message = await messageListService.getMessage(req.params.id);
       res.send(message);
     } catch (e) {
-      console.log("Error Getting Message", e);
+      logger.error(e);
       res.status(500).send("Server Error Getting Message");
     }
   }
@@ -42,7 +43,7 @@ export default class MessageListController {
 
       res.send(edittedMessage);
     } catch (e) {
-      console.log("Error Editing Message", e);
+      logger.error(e);
       res.status(500).send("Server Error Editting Message");
     }
   }
@@ -54,7 +55,7 @@ export default class MessageListController {
 
       res.send(createdMessage);
     } catch (e) {
-      console.log("Error Creating Message", e);
+      logger.error(e);
       res.status(500).send("Server Error Creating Message");
     }
   }
@@ -66,7 +67,7 @@ export default class MessageListController {
 
       res.send();
     } catch (e) {
-      console.log("Error Deleting Message", e);
+      logger.error(e);
       res.status(500).send("Server Error Deleting Message");
     }
   }

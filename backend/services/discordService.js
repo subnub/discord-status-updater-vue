@@ -6,6 +6,7 @@ import wait from "../utils/wait";
 import path from "path";
 import { deleteDirectory } from "../utils/fileUtils";
 import { createPuppeteerOptions } from "../utils/puppeteer-utils";
+import logger from "../logger";
 
 const chromeDataPath = path.join(__dirname, "../../chrome_data");
 
@@ -77,10 +78,11 @@ export default class DiscordService {
     });
 
     if (page.url() !== "https://discord.com/channels/@me") {
-      console.log("NOT LOGGED IN ATTEMPTING LOGIN");
+      logger.warn("Not logged into discord when trying to set status");
       await this.removeLoginData();
       await this.logIntoDiscord(browser, page);
-      console.log("Logged in");
+    } else {
+      logger.info("Set discord status without reauthentication");
     }
 
     await wait(2000);
@@ -132,7 +134,7 @@ export default class DiscordService {
     });
 
     if (page.url() === "https://discord.com/channels/@me") {
-      console.log("Already Logged Into Discord");
+      logger.info("Already logged into discord");
       return;
     }
 

@@ -6,6 +6,6 @@ const logsController = new LogsController();
 
 const router = Router();
 
-router.get("/logs/get-logs", logsController.getLogs);
+router.get("/logs/get-logs", auth, logsController.getLogs);
 
 export default router;
